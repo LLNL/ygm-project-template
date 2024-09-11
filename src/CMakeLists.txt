@@ -1,0 +1,1 @@
+add_ygm_executable(read_json_example)

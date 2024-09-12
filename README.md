@@ -26,6 +26,24 @@ To add a new executable, write your own `cool_ygm_application.cpp` file in the `
 make CMake add your code to its list of compilation targets, add the line `add_ygm_executable(cool_ygm_application)` to
 `src/CMakeLists.txt`.
 
+# Building Your Code
+After your executable has been added to the CMake setup, it can be built by running
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+from the top level of this project.
+
+# Using YGM-Adjacent Libraries
+This repository also supports using SaltAtlas and Krowkee in projects. By default, they are not added, but then can be
+added by adding `-DUSE_SALTATLAS=On` or `-DUSE_KROWKEE=On` to the `cmake` command when building. Running `make` will
+then compile all applications with the appropriate SaltAtlas and/or Krowkee headers included.
+
+To make the above change permanent (and avoid having to type `-DUSE_SALTATLAS=On` every time `cmake` is run), the 
+`CMakeLists.txt` file can be changed from having `option(USE_SALTATLAS OFF)` to `option(USE_SALTATLAS ON)`.
+
 # License
 YGM is distributed under the MIT license.
 

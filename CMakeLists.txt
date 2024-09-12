@@ -15,6 +15,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 include(FetchContent)
 
+option(USE_SALTATLAS OFF)
+option(USE_KROWKEE OFF)
 
 #
 #  Threads
@@ -58,16 +60,34 @@ endif ()
 
 #
 #  SaltAtlas
-if (MPI_CXX_FOUND)
-  find_package(SALTATLAS QUIET)
-  if (NOT SALTATLAS_FOUND)
-    set(JUST_INSTALL_SALTATLAS TRUE)
-    set(SALTATLAS_USE_HDF5 FALSE)
-    FetchContent_Declare(SALTATLAS
-      GIT_REPOSITORY https://github.com/llnl/saltatlas.git
-      GIT_TAG develop
-      )
-    FetchContent_MakeAvailable(SALTATLAS)
+if (USE_SALTATLAS)
+  if (MPI_CXX_FOUND)
+    find_package(SALTATLAS QUIET)
+    if (NOT SALTATLAS_FOUND)
+      set(JUST_INSTALL_SALTATLAS TRUE)
+      set(SALTATLAS_USE_HDF5 FALSE)
+      FetchContent_Declare(SALTATLAS
+        GIT_REPOSITORY https://github.com/llnl/saltatlas.git
+        GIT_TAG v0.3-dev
+        )
+      FetchContent_MakeAvailable(SALTATLAS)
+    endif ()
+  endif ()
+endif ()
+
+#
+# Krowkee
+if (USE_KROWKEE)
+  if (MPI_CXX_FOUND)
+    find_package(KROWKEE QUIET)
+    if (NOT KROWKEE_FOUND)
+      set(JUST_INSTALL_KROWKEE TRUE)
+      FetchContent_Declare(KROWKEE
+        GIT_REPOSITORY https://github.com/llnl/krowkee.git
+        GIT_TAG develop
+        )
+      FetchContent_MakeAvailable(KROWKEE)
+    endif ()
   endif ()
 endif ()
 
@@ -113,7 +133,12 @@ function(setup_ygm_target exe_name)
         target_link_libraries(${exe_name} PRIVATE rt)
     endif ()
     target_link_libraries(${exe_name} PRIVATE ygm::ygm)
-    target_link_libraries(${exe_name} PRIVATE saltatlas)
+    if (USE_SALTATLAS)
+      target_link_libraries(${exe_name} PRIVATE saltatlas)
+    endif ()
+    if (USE_KROWKEE)
+      target_link_libraries(${exe_name} PRIVATE krowkee)
+    endif ()
 endfunction()
 
 function(add_ygm_executable name)

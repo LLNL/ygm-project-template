@@ -44,6 +44,15 @@ then compile all applications with the appropriate SaltAtlas and/or Krowkee head
 To make the above change permanent (and avoid having to type `-DUSE_SALTATLAS=On` every time `cmake` is run), the 
 `CMakeLists.txt` file can be changed from having `option(USE_SALTATLAS OFF)` to `option(USE_SALTATLAS ON)`.
 
+# VS Code Users
+By default, VS Code's C++ IntelliSense does not know the location YGM's `include` directories will be at from our CMake
+configuration. This means code completion features will not work without some modification. To remedy this:
+    1. Open the `C/C++ Configuration` in VS Code (`C/C++: Edit Configuration (UI)` in the Command Palette).
+    2. Navigate to `Compile commands` in `Advanced Settings`.
+    3. Add `${workspaceFolder}/build/compile_commands.json` to the dialog box.
+
+After making this change one time, code completion features for YGM will work in any project built from this template.
+
 # License
 YGM is distributed under the MIT license.
 

@@ -47,6 +47,7 @@ To make the above change permanent (and avoid having to type `-DUSE_SALTATLAS=On
 # VS Code Users
 By default, VS Code's C++ IntelliSense does not know the location YGM's `include` directories will be at from our CMake
 configuration. This means code completion features will not work without some modification. To remedy this:
+
     1. Open the `C/C++ Configuration` in VS Code (`C/C++: Edit Configuration (UI)` in the Command Palette).
     2. Navigate to `Compile commands` in `Advanced Settings`.
     3. Add `${workspaceFolder}/build/compile_commands.json` to the dialog box.

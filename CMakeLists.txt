@@ -92,7 +92,23 @@ if (USE_KROWKEE)
 endif ()
 
 #
-#  Common functions for all MetallData Executables
+# Generate compile_commands.json
+#
+if (NOT CMAKE_EXPORT_COMPILE_COMMANDS)
+  set(CMAKE_EXPORT_COMPILE_COMMANDS On)
+  message(STATUS "Setting CMAKE_EXPORT_COMPILE_COMMANDS to On")
+endif ()
+
+#
+# Default to a Release build
+#
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+  message(STATUS "CMAKE_BUILD_TYPE is set as Release")
+endif ()
+
+#
+#  Common functions for all YGM Executables
 #
 function(add_common_compile_options name)
     # Common

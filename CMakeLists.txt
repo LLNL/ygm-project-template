@@ -7,8 +7,8 @@ cmake_minimum_required(VERSION 3.14)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 project(YGM-Application
-        VERSION 0.1
-        DESCRIPTION "YGM Appliction"
+        VERSION 0.9
+        DESCRIPTION "YGM Application"
         LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -26,7 +26,7 @@ set(YGM_REQUIRE_PARQUET ON)
 set(YGM_INSTALL_PARQUET ON)
 FetchContent_Declare(YGM
     GIT_REPOSITORY https://github.com/llnl/ygm.git
-    GIT_TAG v0.8
+    GIT_TAG v0.9
         )
 FetchContent_MakeAvailable(YGM)
 
